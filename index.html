@@ -1,103 +1,570 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AlgoRhythm</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-    }
-    header {
-      padding: 60px 20px;
-      text-align: center;
-      background: linear-gradient(135deg, #3b82f6, #9333ea);
-    }
-    h1 {
-      margin: 0;
-      font-size: 48px;
-    }
-    section {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-    h2 {
-      color: #60a5fa;
-    }
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    a {
-      color: #38bdf8;
-      text-decoration: none;
-    }
-    .buttons a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      background: #3b82f6;
-      border-radius: 6px;
-      color: white;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlgoRhythm - Master Algorithms & Data Structures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<header>
-  <h1>AlgoRhythm</h1>
-  <p>Interaktywna platforma do nauki algorytmów i struktur danych</p>
+<!-- ========== NAVIGATION BAR ========== -->
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-content">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span>AlgoRhythm</span>
+      </div>
 
-  <div class="buttons">
-    <a href="https://github.com/AlgoRhythmProject/Frontend">Frontend</a>
-    <a href="https://github.com/AlgoRhythmProject/Backend">Backend</a>
+      <div class="nav-tabs">
+        <button class="tab-button active" data-tab="summary">Summary & Motivation</button>
+        <button class="tab-button" data-tab="features">Features</button>
+        <button class="tab-button" data-tab="tech-stack">Tech Stack</button>
+        <button class="tab-button" data-tab="demo">Demo</button>
+        <button class="tab-button" data-tab="setup">Setup</button>
+      </div>
+
+      <div class="nav-actions">
+        <button class="github-btn" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
+          <span class="github-icon">🐙</span>
+          GitHub
+        </button>
+      </div>
+    </div>
   </div>
-</header>
+</nav>
 
-<section>
-  <h2>📌 O projekcie</h2>
-  <div class="card">
-    <p>
-      AlgoRhythm to interaktywna platforma e-learningowa umożliwiająca naukę algorytmów
-      i struktur danych poprzez praktykę. System pozwala rozwiązywać zadania programistyczne,
-      analizować wydajność kodu oraz korzystać z materiałów teoretycznych i wizualizacji.
-    </p>
+<!-- ========== HERO SECTION ========== -->
+<section class="hero">
+  <div class="particles" id="particles"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title"><span class="highlight">AlgoRhythm</span> — Interactive E-Learning Platform</h1>
+        <p class="hero-subtitle">An engineering thesis project for learning algorithms and data structures through interactive courses, practical coding challenges, and algorithm visualizations.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary btn-large" onclick="document.querySelector('[data-tab=\"summary\"]').click()">
+            📖 Read Project
+          </button>
+          <button class="btn btn-secondary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
+            🐙 View on GitHub
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="gradient-sphere"></div>
+        <div class="code-block">
+          <pre><code><span class="keyword">function</span> quickSort(arr) {
+  <span class="keyword">if</span> (arr.length ≤ 1) <span class="keyword">return</span> arr;
+  <span class="keyword">const</span> pivot = arr[0];
+  <span class="keyword">return</span> [
+    ...quickSort(left),
+    pivot,
+    ...quickSort(right)
+  ];
+}</code></pre>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
 
-  <h2>🎯 Cel projektu</h2>
-  <div class="card">
-    <p>
-      Celem projektu było stworzenie nowoczesnej aplikacji webowej łączącej teorię z praktyką.
-      Użytkownicy mogą przechodzić kursy, rozwiązywać zadania i śledzić swoje postępy.
-    </p>
+<!-- ========== MAIN CONTENT WITH TABS ========== -->
+<main class="main-content">
+  <div class="container">
+
+    <!-- ========== SUMMARY & MOTIVATION TAB ========== -->
+    <section id="summary" class="tab-content active">
+      <h2 class="section-title">Summary & Motivation</h2>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">🏛️</div>
+          <div class="stat-number">Thesis</div>
+          <div class="stat-label">Engineering Project</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎓</div>
+          <div class="stat-number">Full</div>
+          <div class="stat-label">Stack Application</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚙️</div>
+          <div class="stat-number">4</div>
+          <div class="stat-label">Core Components</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📚</div>
+          <div class="stat-number">Open</div>
+          <div class="stat-label">Source Repository</div>
+        </div>
+      </div>
+
+      <section class="features-section">
+        <h3>Project Overview</h3>
+        <div class="content-block">
+          <p>
+            <strong>AlgoRhythm</strong> is an interactive e-learning platform designed to help students master algorithms and data structures through a combination of theoretical knowledge and practical problem-solving.
+          </p>
+          <p>
+            The platform bridges the gap between theoretical understanding and practical implementation, offering a comprehensive learning environment where students can study concepts, solve programming challenges, visualize algorithm execution, and track their progress.
+          </p>
+          <p>
+            Built with modern web technologies and deployed on cloud infrastructure, AlgoRhythm provides schools a scalable, accessible solution for computer science education.
+          </p>
+        </div>
+      </section>
+
+      <section class="features-section">
+        <h3>Motivation</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 30px;">
+          Programming education is recognized as a challenging and demanding process. However, recent years have seen significant growth in both the popularity and accessibility of educational tools and materials. Modern programming languages reduce complexity in memory management, while IDEs require minimal setup. Educational materials increasingly include content tailored not just for specialists but for complete beginners.
+        </p>
+        
+        <div class="motivation-grid">
+          <div class="motivation-card">
+            <div class="motivation-icon">📈</div>
+            <h4>Growing Demand</h4>
+            <p>The increasing popularity of programming education creates a growing audience for integrated learning platforms that seamlessly combine theoretical knowledge with practical application.</p>
+          </div>
+          <div class="motivation-card">
+            <div class="motivation-icon">🔗</div>
+            <h4>Integration Gap</h4>
+            <p>Existing e-learning platforms rarely offer complete integration of theoretical materials, programming tasks, and algorithm visualizations in a unified, coherent learning environment.</p>
+          </div>
+          <div class="motivation-card">
+            <div class="motivation-icon">🎯</div>
+            <h4>Targeted Solution</h4>
+            <p>The solution is designed for computer science students, focusing specifically on algorithms and data structures — fundamental topics required for comprehensive CS education.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="features-section">
+        <h3>Core Assumptions</h3>
+        <div class="assumptions-list">
+          <div class="assumption-item">
+            <span class="assumption-number">1</span>
+            <div>
+              <h4>Complete & Intuitive Learning</h4>
+              <p>The platform provides a comprehensive experience combining theory, practical exercises, and visualizations with an intuitive user interface.</p>
+            </div>
+          </div>
+          <div class="assumption-item">
+            <span class="assumption-number">2</span>
+            <div>
+              <h4>Progress Tracking</h4>
+              <p>Users can mark materials as read and task solutions are automatically recorded in the database for progress monitoring.</p>
+            </div>
+          </div>
+          <div class="assumption-item">
+            <span class="assumption-number">3</span>
+            <div>
+              <h4>Structured Learning Paths</h4>
+              <p>Courses organize thematically related materials and tasks, guiding users through a structured learning progression.</p>
+            </div>
+          </div>
+          <div class="assumption-item">
+            <span class="assumption-number">4</span>
+            <div>
+              <h4>Maintainable Architecture</h4>
+              <p>The codebase uses modular design, consistent naming conventions, and loose coupling between components for long-term maintainability.</p>
+            </div>
+          </div>
+          <div class="assumption-item">
+            <span class="assumption-number">5</span>
+            <div>
+              <h4>Dual Role System</h4>
+              <p>Users access learning materials and solve tasks, while administrators manage content, edit courses, and monitor platform activity.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ========== FEATURES TAB ========== -->
+    <section id="features" class="tab-content">
+      <h2 class="section-title">Functional Requirements</h2>
+
+      <section class="features-section">
+        <h3>User Capabilities</h3>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📖</div>
+            <h3>Browse Materials</h3>
+            <p>View published lectures, tasks, and courses in an organized and intuitive manner with filtering and search capabilities.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🎓</div>
+            <h3>Course Progression</h3>
+            <p>Track progress through structured courses with automatic calculation based on completed tasks and read materials.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💻</div>
+            <h3>Solve Tasks</h3>
+            <p>Write and submit solutions to programming tasks with automatic test execution and result feedback.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💡</div>
+            <h3>Request Hints</h3>
+            <p>Access contextual hints and suggestions for challenging tasks to guide learning without revealing solutions.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Visualizations</h3>
+            <p>Write algorithms using graph structures and visualize their execution step-by-step in real-time.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏆</div>
+            <h3>Earn Achievements</h3>
+            <p>Receive badges and recognition upon reaching learning milestones and completing challenges.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💬</div>
+            <h3>Community Discussion</h3>
+            <p>Write, edit, and manage comments on tasks to engage with peers and discuss solutions.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <h3>Authentication</h3>
+            <p>Secure registration, email verification, and login with optional Google OAuth integration.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="features-section">
+        <h3>Administrator Capabilities</h3>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">✏️</div>
+            <h3>Content Management</h3>
+            <p>Create, edit, and delete lectures, courses, and tasks with a user-friendly interface.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3>User Permissions</h3>
+            <p>Grant or revoke administrator roles and manage user access levels across the platform.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Monitor Activity</h3>
+            <p>View recent comments and user submissions with filtering and sorting capabilities.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ========== TECH STACK TAB ========== -->
+    <section id="tech-stack" class="tab-content">
+      <h2 class="section-title">Architecture & Technology</h2>
+
+      <div class="tech-stack-container">
+        <div class="tech-category">
+          <h3>Frontend</h3>
+          <div class="tech-grid">
+            <div class="tech-card">
+              <div class="tech-icon">⚛️</div>
+              <h4>React 18+</h4>
+              <p>Modern UI library with component-based architecture for building interactive user interfaces.</p>
+            </div>
+            <div class="tech-card">
+              <div class="tech-icon">📘</div>
+              <h4>TypeScript</h4>
+              <p>Type-safe JavaScript enabling more robust code with excellent IDE support and developer experience.</p>
+            </div>
+            <div class="tech-card">
+              <div class="tech-icon">🎨</div>
+              <h4>Tailwind CSS</h4>
+              <p>Utility-first CSS framework for rapid, consistent, and responsive user interface development.</p>
+            </div>
+            <div class="tech-card">
+              <div class="tech-icon">✨</div>
+              <h4>Framer Motion</h4>
+              <p>Advanced animation library providing smooth, performant transitions and interactive elements.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Backend & API</h3>
+          <div class="tech-grid">
+            <div class="tech-card">
+              <div class="tech-icon">🔵</div>
+              <h4>ASP.NET Core 6+</h4>
+              <p>Modern, high-performance web framework for building scalable REST APIs with C#.</p>
+            </div>
+            <div class="tech-card">
+              <div class="tech-icon">📊</div>
+              <h4>Entity Framework Core</h4>
+              <p>ORM for database access with LINQ queries and automatic migrations.</p>
+            </div>
+            <div class="tech-card">
+              <div class="tech-icon">🔐</div>
+              <h4>JWT & OAuth 2.0</h4>
+              <p>Secure token-based authentication with Google OAuth integration support.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-category">
+          <h3>Data & Infrastructure</h3>
+          <div class="tech-grid">
+            <div class="tech-card">
+              <div class="tech-icon">📁</div>
+              <h4>SQL Server 2022</h4>
+              <p>Enterprise-grade relational database for reliable, scalable data storage.</p>
+            </div>
+            <div class="tech-card">
+              <div class="tech-icon">🐳</div>
+              <h4>Docker</h4>
+              <p>Containerization ensuring consistent deployment across development and production environments.</p>
+            </div>
+            <div class="tech-card">
+              <div class="tech-icon">☁️</div>
+              <h4>Microsoft Azure</h4>
+              <p>Cloud platform providing hosting, database services, and scalable infrastructure.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="features-section">
+        <h3>System Architecture</h3>
+        <div class="architecture-section">
+          <div class="architecture-box">
+            <h4 style="color: var(--primary); margin-bottom: 15px;">Design Principles</h4>
+            <ul class="architecture-list">
+              <li><strong>Modularity:</strong> Separation of concerns with well-defined module boundaries</li>
+              <li><strong>Scalability:</strong> Cloud-native design with containerization ready architecture</li>
+              <li><strong>Security:</strong> Secure authentication, isolated code execution containers</li>
+              <li><strong>Maintainability:</strong> Consistent naming conventions, loose coupling between components</li>
+              <li><strong>Performance:</strong> Optimized queries, caching strategies, efficient algorithms</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="features-section">
+        <h3>Code Execution</h3>
+        <div class="architecture-section">
+          <div class="architecture-box">
+            <p style="color: var(--text-secondary); line-height: 1.8;">
+              User code is executed on isolated Docker containers with appropriate security measures and resource limitations. This approach protects user data while ensuring safe execution of arbitrary code submissions. Each execution is time-limited and resource-constrained to prevent abuse.
+            </p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ========== DEMO TAB ========== -->
+    <section id="demo" class="tab-content">
+      <h2 class="section-title">Project Structure & Repositories</h2>
+
+      <div class="demo-container">
+        <div class="demo-card">
+          <h3>GitHub Organization</h3>
+          <p>All project source code is publicly available on GitHub. The project is organized into separate repositories for frontend, backend, and infrastructure configuration.</p>
+          <button class="btn btn-primary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
+            🐙 Visit GitHub
+          </button>
+        </div>
+
+        <div class="demo-features">
+          <h3>Key Repositories</h3>
+          <ul class="demo-list">
+            <li>
+              <span class="demo-check">→</span>
+              <strong>Frontend</strong> - React/TypeScript application with UI components and state management
+            </li>
+            <li>
+              <span class="demo-check">→</span>
+              <strong>Backend</strong> - ASP.NET Core API with business logic and database access
+            </li>
+            <li>
+              <span class="demo-check">→</span>
+              <strong>Infrastructure</strong> - Docker Compose configuration and deployment scripts
+            </li>
+            <li>
+              <span class="demo-check">→</span>
+              <strong>Documentation</strong> - API documentation, setup guides, and architecture diagrams
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <section class="features-section">
+        <h3>Project Statistics</h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div class="stat-number">3</div>
+            <div class="stat-label">Main Repositories</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Commits</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🔧</div>
+            <div class="stat-number">9</div>
+            <div class="stat-label">Tech Stack</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div class="stat-number">MIT</div>
+            <div class="stat-label">Open Source License</div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ========== SETUP TAB ========== -->
+    <section id="setup" class="tab-content">
+      <h2 class="section-title">Development & Deployment</h2>
+
+      <section class="setup-section">
+        <h3>Prerequisites</h3>
+        <div class="setup-card">
+          <ul style="list-style: none; color: var(--text-secondary);">
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Node.js 16+</strong> - For frontend development</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">.NET 6+ SDK</strong> - For backend development</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Docker & Docker Compose</strong> - For containerized deployment</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SQL Server 2022</strong> - Or use containerized version</li>
+            <li style="margin-bottom: 0;"><strong style="color: var(--text-primary);">Git</strong> - For version control</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="setup-section">
+        <h3>Local Development Setup</h3>
+        
+        <div style="margin-bottom: 30px;">
+          <h4 style="color: var(--text-primary); margin-bottom: 15px;">1. Frontend</h4>
+          <div class="setup-card">
+            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Frontend.git
+<span class="keyword">cd</span> Frontend
+npm install
+npm run dev</code></pre>
+            <p class="setup-note">Frontend runs on http://localhost:5173</p>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+          <h4 style="color: var(--text-primary); margin-bottom: 15px;">2. Backend</h4>
+          <div class="setup-card">
+            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Backend.git
+<span class="keyword">cd</span> Backend
+dotnet restore
+dotnet ef database update
+dotnet run</code></pre>
+            <p class="setup-note">API runs on https://localhost:5001</p>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+          <h4 style="color: var(--text-primary); margin-bottom: 15px;">3. Docker Deployment</h4>
+          <div class="setup-card">
+            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Docker.git
+<span class="keyword">cd</span> Docker
+docker-compose up</code></pre>
+            <p class="setup-note">All services start. Access app at http://localhost:3000</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="setup-section">
+        <h3>Documentation & Resources</h3>
+        <div class="setup-links">
+          <a href="https://github.com/AlgoRhythmProject/Frontend" class="setup-link" target="_blank">
+            📘 Frontend Repo
+          </a>
+          <a href="https://github.com/AlgoRhythmProject/Backend" class="setup-link" target="_blank">
+            📗 Backend Repo
+          </a>
+          <a href="https://github.com/AlgoRhythmProject" class="setup-link" target="_blank">
+            📙 Main Organization
+          </a>
+        </div>
+      </section>
+    </section>
+
   </div>
+</main>
 
-  <h2>⚙️ Technologie</h2>
-  <div class="card">
-    <ul>
-      <li>Backend: ASP.NET Core</li>
-      <li>Frontend: React + TypeScript</li>
-      <li>Baza danych: Microsoft SQL Server</li>
-      <li>DevOps: Docker + Azure</li>
-    </ul>
+<!-- ========== CTA SECTION ========== -->
+<section class="cta-section-wrapper">
+  <div class="container">
+    <div class="cta-section">
+      <div class="cta-content">
+        <h2>Explore the Project</h2>
+        <p>AlgoRhythm is an open-source engineering thesis project. All source code, documentation, and resources are freely available on GitHub.</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
+            🐙 View Repository
+          </button>
+          <button class="btn btn-secondary btn-large" onclick="document.querySelector('[data-tab=\"setup\"]').click()">
+            ⚙️ Setup Guide
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
 
-  <h2>🧠 Funkcjonalności</h2>
-  <div class="card">
-    <ul>
-      <li>Rozwiązywanie zadań programistycznych</li>
-      <li>Automatyczne testy kodu</li>
-      <li>Wizualizacje algorytmów</li>
-      <li>Kursy i materiały edukacyjne</li>
-      <li>System postępów i osiągnięć</li>
-      <li>Panel administratora</li>
-    </ul>
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>AlgoRhythm</h4>
+        <p>An interactive platform for learning algorithms and data structures.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Repository</h4>
+        <ul>
+          <li><a href="https://github.com/AlgoRhythmProject/Frontend" target="_blank">Frontend</a></li>
+          <li><a href="https://github.com/AlgoRhythmProject/Backend" target="_blank">Backend</a></li>
+          <li><a href="https://github.com/AlgoRhythmProject" target="_blank">Main</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#summary">Documentation</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#tech-stack">Tech Stack</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 AlgoRhythm. Built for Computer Science Education.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script src="script.js"></script>
+<script>
+  // Initialize all functionality when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeParticles();
+    initializeTabs();
+    initializeSmoothScroll();
+    initializeScrollToTop();
+    initializeScrollAnimations();
+    updateActiveTab();
+    animateCounters();
+  });
+</script>
+
+</body>
+</html>
   </div>
 
   <h2>🔐 Bezpieczeństwo</h2>
