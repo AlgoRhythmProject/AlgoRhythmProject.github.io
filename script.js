@@ -23,6 +23,7 @@ function initializeParticles() {
 function initializeTabs() {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
+    const heroSection = document.getElementById('hero-section');
 
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -38,6 +39,21 @@ function initializeTabs() {
             if (tabContent) {
                 tabContent.classList.add('active');
             }
+
+            // Show/hide HERO section - only visible on summary tab
+            if (heroSection) {
+                if (tabName === 'summary') {
+                    heroSection.style.display = 'block';
+                } else {
+                    heroSection.style.display = 'none';
+                }
+            }
+
+            // Scroll to top of page
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     });
 }
@@ -132,28 +148,6 @@ function initializeScrollAnimations() {
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
-    });
-}
-
-/* ================== Active Section Highlight on Scroll ================== */
-function updateActiveTab() {
-    const sections = document.querySelectorAll('[id]');
-    const buttons = document.querySelectorAll('.tab-button');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            if (section.id && section.offsetTop <= window.scrollY + 100) {
-                current = section.id;
-            }
-        });
-
-        buttons.forEach(btn => {
-            if (btn.getAttribute('data-tab') === current) {
-                buttons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            }
-        });
     });
 }
 
@@ -255,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeLazyLoading();
     initializeNavbarScroll();
     initializeMobileMenu();
-    updateActiveTab();
     
     // Animation for counters
     setTimeout(() => animateCounters(), 500);
