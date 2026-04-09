@@ -361,7 +361,7 @@
         </div>
       </div>
 
-      <section class="features-section">
+      <section class="features-section" style="margin-top: 40px;">
         <h3>System Architecture</h3>
         <div class="architecture-section">
           <div class="architecture-box">
@@ -381,10 +381,57 @@
         <h3>Code Execution</h3>
         <div class="architecture-section">
           <div class="architecture-box">
-            <p style="color: var(--text-secondary); line-height: 1.8;">
-              User code is executed on isolated Docker containers with appropriate security measures and resource limitations. This approach protects user data while ensuring safe execution of arbitrary code submissions. Each execution is time-limited and resource-constrained to prevent abuse.
+            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+              Remote code execution is a critical feature enabling safe evaluation of user-submitted code. The platform uses Docker containerization with strict resource limitations, paired with Roslyn's compiler-as-a-service architecture for high performance and security.
             </p>
           </div>
+        </div>
+
+        <h4 style="color: var(--text-primary); margin-top: 24px; margin-bottom: 16px; font-size: 0.95rem;">Execution Flow & Architecture</h4>
+        <div class="execution-flow">
+          <div class="execution-step">
+            <div class="execution-icon">📨</div>
+            <div class="execution-content">
+              <h4>1. Code Submission</h4>
+              <p>When a user submits code, a database record with <span class="tech-highlight">pending status</span> is created. The backend immediately returns confirmation to the frontend without blocking. The frontend begins polling for execution results.</p>
+            </div>
+          </div>
+
+          <div class="execution-step">
+            <div class="execution-icon">⚙️</div>
+            <div class="execution-content">
+              <h4>2. Preparation & Routing</h4>
+              <p>The backend parses user code and test cases, formatting them for the code executor. <span class="tech-highlight">NGINX load balancer</span> routes the request to an available container instance, ensuring balanced distribution across multiple replicas.</p>
+            </div>
+          </div>
+
+          <div class="execution-step">
+            <div class="execution-icon">🔨</div>
+            <div class="execution-content">
+              <h4>3. Compilation & Analysis</h4>
+              <p>The <span class="tech-highlight">Roslyn compiler</span> inside the container performs lexical analysis, parsing, semantic validation, and intermediate code generation. Fine-grained access to compilation phases allows advanced diagnostics and security checks.</p>
+            </div>
+          </div>
+
+          <div class="execution-step">
+            <div class="execution-icon">🐳</div>
+            <div class="execution-content">
+              <h4>4. Isolated Execution</h4>
+              <p>Code runs in the isolated Docker container with enforced <span class="tech-highlight">resource limits</span> (CPU, memory, processes) and restricted file access. Time constraints prevent infinite loops; container failure is isolated from other instances.</p>
+            </div>
+          </div>
+
+          <div class="execution-step">
+            <div class="execution-icon">📊</div>
+            <div class="execution-content">
+              <h4>5. Results & Feedback</h4>
+              <p>Execution results are stored in the database and marked as completed. The frontend's polling mechanism retrieves results and displays them to the user. Test outputs, error messages, and performance metrics are included in the response.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="execution-summary">
+          <p><strong>Design Trade-offs:</strong> The Roslyn-based approach prioritizes <strong>performance</strong> (comparable to local execution) and <strong>scalability</strong> (easy container replication) over multi-language support. This makes the platform ideal for academic environments where C# dominance and responsiveness are more valuable than language diversity.</p>
         </div>
       </section>
     </section>
@@ -460,49 +507,118 @@
         <h3>Prerequisites</h3>
         <div class="setup-card">
           <ul style="list-style: none; color: var(--text-secondary);">
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Node.js 16+</strong> - For frontend development</li>
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">.NET 6+ SDK</strong> - For backend development</li>
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Docker & Docker Compose</strong> - For containerized deployment</li>
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SQL Server 2022</strong> - Or use containerized version</li>
-            <li style="margin-bottom: 0;"><strong style="color: var(--text-primary);">Git</strong> - For version control</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Docker & Docker Desktop</strong> - Latest version required for containerization</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Git</strong> - Latest version for repository management</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SQL Server Management Studio</strong> - Optional, for database management</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Visual Studio 2022/2026</strong> - Optional, for development environment</li>
+            <li style="margin-bottom: 0;"><strong style="color: var(--text-primary);">Modern Web Browser</strong> - Chrome recommended (mobile devices not supported)</li>
           </ul>
         </div>
       </section>
 
       <section class="setup-section">
-        <h3>Local Development Setup</h3>
+        <h3>Project Structure</h3>
+        <div class="setup-card">
+          <p style="color: var(--text-secondary); margin-bottom: 12px;">Create the following directory structure:</p>
+          <pre><code>AlgoRhythmProject/
+├── Frontend/
+│   ├── AlgoRhythm/
+│   └── .env
+├── Backend/
+│   ├── AlgoRhythm/
+│   │   └── .env
+│   └── docker-compose.dev.yml
+└── docker-compose.prod.yml</code></pre>
+        </div>
+      </section>
+
+      <section class="setup-section">
+        <h3>Environment Variables Setup</h3>
         
-        <div style="margin-bottom: 30px;">
-          <h4 style="color: var(--text-primary); margin-bottom: 15px;">1. Frontend</h4>
+        <div style="margin-bottom: 24px;">
+          <h4 style="color: var(--text-primary); margin-bottom: 12px;">Backend Variables (.env)</h4>
           <div class="setup-card">
-            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Frontend.git
-<span class="keyword">cd</span> Frontend
-npm install
-npm run dev</code></pre>
-            <p class="setup-note">Frontend runs on http://localhost:5173</p>
+            <pre><code><span class="keyword">SA_PASSWORD</span>=your_db_password
+<span class="keyword">JWT_KEY</span>=your_jwt_secret_key
+<span class="keyword">CONNECTION_STRING</span>=Server=mssql;...
+<span class="keyword">SENDGRID_API_KEY</span>=your_sendgrid_key
+<span class="keyword">FRONTEND_URL</span>=http://localhost:5173
+<span class="keyword">CODE_EXECUTOR_URL</span>=http://executor-lb:80
+<span class="keyword">GOOGLE_CLIENT_ID</span>=your_google_client_id
+<span class="keyword">GOOGLE_CLIENT_SECRET</span>=your_google_secret</code></pre>
           </div>
         </div>
 
-        <div style="margin-bottom: 30px;">
-          <h4 style="color: var(--text-primary); margin-bottom: 15px;">2. Backend</h4>
+        <div style="margin-bottom: 24px;">
+          <h4 style="color: var(--text-primary); margin-bottom: 12px;">Frontend Variables (.env)</h4>
           <div class="setup-card">
-            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Backend.git
-<span class="keyword">cd</span> Backend
-dotnet restore
-dotnet ef database update
-dotnet run</code></pre>
-            <p class="setup-note">API runs on https://localhost:5001</p>
+            <pre><code><span class="keyword">VITE_API_BASE_URL</span>=http://localhost:7062/api
+<span class="keyword">VITE_ANALYZER_URL</span>=http://localhost:5095/roslynhub
+<span class="keyword">VITE_VISUALIZER_URL</span>=http://localhost:5148/visualizerhub
+<span class="keyword">VITE_GOOGLE_CLIENT_ID</span>=your_google_client_id</code></pre>
           </div>
         </div>
+      </section>
 
-        <div style="margin-bottom: 30px;">
-          <h4 style="color: var(--text-primary); margin-bottom: 15px;">3. Docker Deployment</h4>
-          <div class="setup-card">
-            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Docker.git
-<span class="keyword">cd</span> Docker
-docker-compose up</code></pre>
-            <p class="setup-note">All services start. Access app at http://localhost:3000</p>
-          </div>
+      <section class="setup-section">
+        <h3>Development Environment</h3>
+        <div class="setup-card">
+          <p style="color: var(--text-secondary); margin-bottom: 16px;">The development environment optimizes code and testing with local builds.</p>
+          <ol style="list-style-position: inside; color: var(--text-secondary); padding-left: 0;">
+            <li style="margin-bottom: 12px;">Clone repositories:
+              <pre style="margin-top: 8px;"><code>git clone https://github.com/AlgoRhythmProject/Backend.git
+git clone https://github.com/AlgoRhythmProject/Frontend.git</code></pre>
+            </li>
+            <li style="margin-bottom: 12px;">Create .env files in both Backend/AlgoRhythm/ and Frontend/AlgoRhythm/ with variables listed above</li>
+            <li style="margin-bottom: 12px;">Navigate to Backend/AlgoRhythm/ and run:
+              <pre style="margin-top: 8px;"><code>docker-compose -f docker-compose.dev.yml up --scale executor=2</code></pre>
+            </li>
+            <li style="margin-bottom: 0;">Access the application at <strong>http://localhost:5173</strong></li>
+          </ol>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <p style="color: var(--text-secondary); font-size: 0.9rem;"><strong>Useful Endpoints:</strong></p>
+          <ul style="list-style: none; color: var(--text-secondary); margin-top: 8px;">
+            <li>🌐 Frontend: http://localhost:5173</li>
+            <li>📡 Backend API: https://localhost:7062</li>
+            <li>📚 Swagger (Backend): http://localhost:7062/swagger/index.html</li>
+            <li>⚙️ Swagger (Code Executor): http://localhost:7070/swagger/index.html</li>
+            <li>💾 Database: Server=localhost, Port=1433 (via SQL Server Management Studio)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="setup-section">
+        <h3>Production Environment</h3>
+        <div class="setup-card">
+          <p style="color: var(--text-secondary); margin-bottom: 16px;">Production environment uses lightweight pre-built images and automated CI/CD.</p>
+          <ol style="list-style-position: inside; color: var(--text-secondary); padding-left: 0;">
+            <li style="margin-bottom: 12px;">Download <code>docker-compose.prod.yml</code></li>
+            <li style="margin-bottom: 12px;">Create a .env file with all backend variables plus:
+              <pre style="margin-top: 8px;"><code><span class="keyword">AZURE_STORAGE_CONNECTION_STRING</span>=your_azure_connection
+<span class="keyword">ANALYZER_URL</span>=http://localhost:5095/roslynhub
+<span class="keyword">VISUALISER_URL</span>=http://localhost:5148/visualizerhub
+<span class="keyword">BACKEND_URL</span>=http://localhost:7062/api</code></pre>
+            </li>
+            <li style="margin-bottom: 12px;">Run:
+              <pre style="margin-top: 8px;"><code>docker-compose -f docker-compose.prod.yml up --scale executor=2</code></pre>
+            </li>
+            <li style="margin-bottom: 0;">Application automatically updates database and initializes with seed data</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="setup-section">
+        <h3>External Dependencies</h3>
+        <div class="setup-card">
+          <p style="color: var(--text-secondary); margin-bottom: 16px;"><strong>The platform depends on the following external services:</strong></p>
+          <ul style="list-style: none; color: var(--text-secondary);">
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Roslyn</strong> - C# compiler (Microsoft). Easily extensible for other languages.</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SQL Server</strong> - Primary database. Entity Framework Core supports MySQL, SQLite, PostgreSQL as alternatives.</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SendGrid</strong> - Email service. Replaceable via IEmailSender interface implementation.</li>
+            <li style="margin-bottom: 0;"><strong style="color: var(--text-primary);">Azure Blob Storage</strong> - File storage for videos/images. Replaceable via IFileStorageService interface.</li>
+          </ul>
         </div>
       </section>
 
@@ -510,10 +626,10 @@ docker-compose up</code></pre>
         <h3>Documentation & Resources</h3>
         <div class="setup-links">
           <a href="https://github.com/AlgoRhythmProject/Frontend" class="setup-link" target="_blank">
-            📘 Frontend Repo
+            📘 Frontend Repository
           </a>
           <a href="https://github.com/AlgoRhythmProject/Backend" class="setup-link" target="_blank">
-            📗 Backend Repo
+            📗 Backend Repository
           </a>
           <a href="https://github.com/AlgoRhythmProject" class="setup-link" target="_blank">
             📙 Main Organization
@@ -536,8 +652,8 @@ docker-compose up</code></pre>
           <button class="btn btn-primary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
             🐙 View Repository
           </button>
-          <button class="btn btn-secondary btn-large" onclick="document.querySelector('[data-tab=\"setup\"]').click()">
-            ⚙️ Setup Guide
+          <button class="btn btn-secondary btn-large" onclick="window.open('Thesis.pdf', '_blank')">
+            📄 Read Project
           </button>
         </div>
       </div>
@@ -595,13 +711,6 @@ docker-compose up</code></pre>
 </html>
   </div>
 
-  <h2>🔐 Bezpieczeństwo</h2>
-  <div class="card">
-    <p>
-      Kod użytkownika wykonywany jest w izolowanym środowisku (kontenery Docker),
-      co zapewnia bezpieczeństwo i ochronę danych.
-    </p>
-  </div>
 
 </section>
 

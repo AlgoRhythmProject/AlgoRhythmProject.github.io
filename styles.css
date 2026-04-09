@@ -870,6 +870,90 @@ body {
     line-height: 1.5;
 }
 
+/* ================== Code Execution Flow ================== */
+.execution-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.execution-step {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.execution-step:hover {
+    border-color: var(--primary);
+    background: rgba(105, 66, 213, 0.05);
+}
+
+.execution-step::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 60px;
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--primary), transparent);
+    opacity: 0.3;
+}
+
+.execution-step:last-child::before {
+    display: none;
+}
+
+.execution-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #6942d5, #5a38c5);
+    border-radius: 8px;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.execution-content h4 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.execution-content p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.execution-content .tech-highlight {
+    color: var(--info);
+    font-weight: 500;
+}
+
+.execution-summary {
+    background: linear-gradient(135deg, rgba(105, 66, 213, 0.1) 0%, rgba(0, 234, 255, 0.05) 100%);
+    border-left: 4px solid var(--primary);
+    padding: 16px;
+    border-radius: 4px;
+    margin-top: 24px;
+}
+
+.execution-summary p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
 /* ================== Responsive ================== */
 @media (max-width: 768px) {
     .nav-tabs {
@@ -978,6 +1062,26 @@ body {
     }
 
     .roadmap-content p {
+        font-size: 0.8rem;
+    }
+
+    .execution-step {
+        grid-template-columns: 50px 1fr;
+        gap: 16px;
+        padding: 12px 16px;
+    }
+
+    .execution-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+    }
+
+    .execution-content h4 {
+        font-size: 0.95rem;
+    }
+
+    .execution-content p {
         font-size: 0.8rem;
     }
 }
