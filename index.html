@@ -379,124 +379,205 @@
 
       <section class="features-section">
         <h3>Code Execution</h3>
-        <div class="architecture-section">
-          <div class="architecture-box">
-            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
-              Remote code execution is a critical feature enabling safe evaluation of user-submitted code. The platform uses Docker containerization with strict resource limitations, paired with Roslyn's compiler-as-a-service architecture for high performance and security.
-            </p>
-          </div>
-        </div>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          Remote code execution is a critical feature enabling safe evaluation of user-submitted code. The platform uses Docker containerization with strict resource limitations, paired with Roslyn's compiler-as-a-service architecture for high performance and security.
+        </p>
 
-        <h4 style="color: var(--text-primary); margin-top: 24px; margin-bottom: 16px; font-size: 0.95rem;">Execution Flow & Architecture</h4>
+        <h4 style="color: var(--text-primary); margin-bottom: 16px; font-size: 0.95rem;">Execution Flow</h4>
         <div class="execution-flow">
           <div class="execution-step">
-            <div class="execution-icon">📨</div>
+            <div class="execution-icon">1</div>
             <div class="execution-content">
-              <h4>1. Code Submission</h4>
-              <p>When a user submits code, a database record with <span class="tech-highlight">pending status</span> is created. The backend immediately returns confirmation to the frontend without blocking. The frontend begins polling for execution results.</p>
+              <h4>Code Submission</h4>
+              <p>Database record created with pending status. Backend returns confirmation immediately without blocking. Frontend polls for execution results.</p>
             </div>
           </div>
 
           <div class="execution-step">
-            <div class="execution-icon">⚙️</div>
+            <div class="execution-icon">2</div>
             <div class="execution-content">
-              <h4>2. Preparation & Routing</h4>
-              <p>The backend parses user code and test cases, formatting them for the code executor. <span class="tech-highlight">NGINX load balancer</span> routes the request to an available container instance, ensuring balanced distribution across multiple replicas.</p>
+              <h4>Preparation & Routing</h4>
+              <p>Code and test cases formatted for the executor. <span class="tech-highlight">NGINX load balancer</span> distributes requests across container instances.</p>
             </div>
           </div>
 
           <div class="execution-step">
-            <div class="execution-icon">🔨</div>
+            <div class="execution-icon">3</div>
             <div class="execution-content">
-              <h4>3. Compilation & Analysis</h4>
-              <p>The <span class="tech-highlight">Roslyn compiler</span> inside the container performs lexical analysis, parsing, semantic validation, and intermediate code generation. Fine-grained access to compilation phases allows advanced diagnostics and security checks.</p>
+              <h4>Compilation & Analysis</h4>
+              <p>Roslyn compiler performs lexical analysis, parsing, semantic validation, and code generation. Fine-grained access enables advanced diagnostics and security checks.</p>
             </div>
           </div>
 
           <div class="execution-step">
-            <div class="execution-icon">🐳</div>
+            <div class="execution-icon">4</div>
             <div class="execution-content">
-              <h4>4. Isolated Execution</h4>
-              <p>Code runs in the isolated Docker container with enforced <span class="tech-highlight">resource limits</span> (CPU, memory, processes) and restricted file access. Time constraints prevent infinite loops; container failure is isolated from other instances.</p>
+              <h4>Isolated Execution</h4>
+              <p>Code runs in isolated Docker container with <span class="tech-highlight">resource limits</span> (CPU, memory). Time constraints prevent infinite loops; failures isolated from other instances.</p>
             </div>
           </div>
 
           <div class="execution-step">
-            <div class="execution-icon">📊</div>
+            <div class="execution-icon">5</div>
             <div class="execution-content">
-              <h4>5. Results & Feedback</h4>
-              <p>Execution results are stored in the database and marked as completed. The frontend's polling mechanism retrieves results and displays them to the user. Test outputs, error messages, and performance metrics are included in the response.</p>
+              <h4>Results & Feedback</h4>
+              <p>Execution results stored in database. Frontend polling retrieves results with test outputs, error messages, and performance metrics.</p>
             </div>
           </div>
         </div>
 
+        <h4 style="color: var(--text-primary); margin-top: 24px; margin-bottom: 16px; font-size: 0.95rem;">Design Trade-offs</h4>
         <div class="execution-summary">
-          <p><strong>Design Trade-offs:</strong> The Roslyn-based approach prioritizes <strong>performance</strong> (comparable to local execution) and <strong>scalability</strong> (easy container replication) over multi-language support. This makes the platform ideal for academic environments where C# dominance and responsiveness are more valuable than language diversity.</p>
+          <p>The Roslyn-based approach prioritizes <strong>performance</strong> (comparable to local execution) and <strong>scalability</strong> (easy container replication) over multi-language support. This makes the platform ideal for academic environments where C# dominance and responsiveness are more valuable than language diversity.</p>
         </div>
       </section>
     </section>
 
     <!-- ========== DEMO TAB ========== -->
     <section id="demo" class="tab-content">
-      <h2 class="section-title">Project Structure & Repositories</h2>
+      <h2 class="section-title">Platform Overview</h2>
 
-      <div class="demo-container">
-        <div class="demo-card">
-          <h3>GitHub Organization</h3>
-          <p>All project source code is publicly available on GitHub. The project is organized into separate repositories for frontend, backend, and infrastructure configuration.</p>
-          <button class="btn btn-primary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
-            🐙 Visit GitHub
-          </button>
+      <div class="demo-gallery">
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Register.png" alt="Registration">
+          </div>
+          <div class="demo-text">
+            <h4>Registration view</h4>
+            <p>Users start by registering with their email address. The registration form is simple and intuitive, collecting only essential information needed to create an account.</p>
+          </div>
         </div>
 
-        <div class="demo-features">
-          <h3>Key Repositories</h3>
-          <ul class="demo-list">
-            <li>
-              <span class="demo-check">→</span>
-              <strong>Frontend</strong> - React/TypeScript application with UI components and state management
-            </li>
-            <li>
-              <span class="demo-check">→</span>
-              <strong>Backend</strong> - ASP.NET Core API with business logic and database access
-            </li>
-            <li>
-              <span class="demo-check">→</span>
-              <strong>Infrastructure</strong> - Docker Compose configuration and deployment scripts
-            </li>
-            <li>
-              <span class="demo-check">→</span>
-              <strong>Documentation</strong> - API documentation, setup guides, and architecture diagrams
-            </li>
-          </ul>
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/VerifyEmail.png" alt="Email Verification">
+          </div>
+          <div class="demo-text">
+            <h4>Email verification view</h4>
+            <p>After registration, users verify their email address. A verification link is sent to the provided email, ensuring account authenticity and enabling secure communication.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Login.png" alt="Login">
+          </div>
+          <div class="demo-text">
+            <h4>Login view</h4>
+            <p>The login page provides secure access to the platform. Users can authenticate with their credentials or use Google OAuth for quick, passwordless sign-in.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Dashboard-Course.gif" alt="Dashboard to Courses">
+          </div>
+          <div class="demo-text">
+            <h4>Dashboard to courses transition</h4>
+            <p>Upon login, users see the dashboard showing their progress. They can navigate to the courses list to browse all available learning materials and topics.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Course-Lecture.gif" alt="Course to Lecture">
+          </div>
+          <div class="demo-text">
+            <h4>Course to lecture view transition</h4>
+            <p>Selecting a course displays the lecture materials. Users can read through course content, mark materials as completed, and track their learning progress.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Task.png" alt="Task View">
+          </div>
+          <div class="demo-text">
+            <h4>Task view</h4>
+            <p>Tasks allow users to apply their knowledge. Each task includes the problem description, code editor, and test cases to validate solutions.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Code_Analisis.gif" alt="Code Analysis">
+          </div>
+          <div class="demo-text">
+            <h4>Code analysis</h4>
+            <p>The platform analyzes submitted code in real-time, detecting syntax errors and semantic issues before execution. Detailed feedback helps users understand and fix problems.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Executing_code.gif" alt="Code Execution">
+          </div>
+          <div class="demo-text">
+            <h4>Code execution</h4>
+            <p>When code is executed, the platform runs it in an isolated Docker container. Results display immediately with test case outputs and performance metrics.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Submissions.png" alt="Submissions">
+          </div>
+          <div class="demo-text">
+            <h4>Submissions view</h4>
+            <p>Users can view all their previous submissions in one place. Each submission shows the code, execution results, and timestamp of the attempt.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Comments.png" alt="Comments">
+          </div>
+          <div class="demo-text">
+            <h4>Comments view</h4>
+            <p>Community discussion is built into each task. Users can comment, ask questions, and share insights with peers to enhance collaborative learning.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Lectures.png" alt="Lectures Tab">
+          </div>
+          <div class="demo-text">
+            <h4>Lectures tab view</h4>
+            <p>The lectures tab within a course displays all theoretical materials. Users navigate through lessons, read content, and mark materials as studied.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Tasks.png" alt="Tasks Tab">
+          </div>
+          <div class="demo-text">
+            <h4>Tasks tab view</h4>
+            <p>The tasks tab shows all coding exercises in a course. Users can filter by difficulty, view their progress, and access tasks they want to practice.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Visualizations.gif" alt="Algorithm Visualizations">
+          </div>
+          <div class="demo-text">
+            <h4>Algorithm visualizations</h4>
+            <p>Interactive visualizations show algorithm execution step-by-step. Users can write sorting algorithms and watch them execute with detailed process visualization.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Admin.png" alt="Admin Panel">
+          </div>
+          <div class="demo-text">
+            <h4>Admin panel</h4>
+            <p>Administrators have a dedicated panel to manage courses, tasks, and platform activity. They can create content, monitor user submissions, and manage permissions.</p>
+          </div>
         </div>
       </div>
-
-      <section class="features-section">
-        <h3>Project Statistics</h3>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">📦</div>
-            <div class="stat-number">3</div>
-            <div class="stat-label">Main Repositories</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">📝</div>
-            <div class="stat-number">100+</div>
-            <div class="stat-label">Commits</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🔧</div>
-            <div class="stat-number">9</div>
-            <div class="stat-label">Tech Stack</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">📚</div>
-            <div class="stat-number">MIT</div>
-            <div class="stat-label">Open Source License</div>
-          </div>
-        </div>
-      </section>
     </section>
 
     <!-- ========== SETUP TAB ========== -->
