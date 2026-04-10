@@ -48,11 +48,11 @@
         <h1 class="hero-title"><span class="highlight">AlgoRhythm</span> — Interactive E-Learning Platform</h1>
         <p class="hero-subtitle">An engineering thesis project for learning algorithms and data structures through interactive courses, practical coding challenges, and algorithm visualizations.</p>
         <div class="hero-buttons">
-          <button class="btn btn-primary btn-large" onclick="document.querySelector('[data-tab=\"summary\"]').click()">
-            📖 Read Project
-          </button>
-          <button class="btn btn-secondary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
+          <button class="btn btn-primary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
             🐙 View on GitHub
+          </button>
+          <button class="btn btn-secondary btn-large" onclick="window.open('Thesis.pdf', '_blank')">
+            📄 Read Project
           </button>
         </div>
       </div>
@@ -361,7 +361,7 @@
         </div>
       </div>
 
-      <section class="features-section">
+      <section class="features-section" style="margin-top: 40px;">
         <h3>System Architecture</h3>
         <div class="architecture-section">
           <div class="architecture-box">
@@ -379,77 +379,205 @@
 
       <section class="features-section">
         <h3>Code Execution</h3>
-        <div class="architecture-section">
-          <div class="architecture-box">
-            <p style="color: var(--text-secondary); line-height: 1.8;">
-              User code is executed on isolated Docker containers with appropriate security measures and resource limitations. This approach protects user data while ensuring safe execution of arbitrary code submissions. Each execution is time-limited and resource-constrained to prevent abuse.
-            </p>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          Remote code execution is a critical feature enabling safe evaluation of user-submitted code. The platform uses Docker containerization with strict resource limitations, paired with Roslyn's compiler-as-a-service architecture for high performance and security.
+        </p>
+
+        <h4 style="color: var(--text-primary); margin-bottom: 16px; font-size: 0.95rem;">Execution Flow</h4>
+        <div class="execution-flow">
+          <div class="execution-step">
+            <div class="execution-icon">1</div>
+            <div class="execution-content">
+              <h4>Code Submission</h4>
+              <p>Database record created with pending status. Backend returns confirmation immediately without blocking. Frontend polls for execution results.</p>
+            </div>
           </div>
+
+          <div class="execution-step">
+            <div class="execution-icon">2</div>
+            <div class="execution-content">
+              <h4>Preparation & Routing</h4>
+              <p>Code and test cases formatted for the executor. <span class="tech-highlight">NGINX load balancer</span> distributes requests across container instances.</p>
+            </div>
+          </div>
+
+          <div class="execution-step">
+            <div class="execution-icon">3</div>
+            <div class="execution-content">
+              <h4>Compilation & Analysis</h4>
+              <p>Roslyn compiler performs lexical analysis, parsing, semantic validation, and code generation. Fine-grained access enables advanced diagnostics and security checks.</p>
+            </div>
+          </div>
+
+          <div class="execution-step">
+            <div class="execution-icon">4</div>
+            <div class="execution-content">
+              <h4>Isolated Execution</h4>
+              <p>Code runs in isolated Docker container with <span class="tech-highlight">resource limits</span> (CPU, memory). Time constraints prevent infinite loops; failures isolated from other instances.</p>
+            </div>
+          </div>
+
+          <div class="execution-step">
+            <div class="execution-icon">5</div>
+            <div class="execution-content">
+              <h4>Results & Feedback</h4>
+              <p>Execution results stored in database. Frontend polling retrieves results with test outputs, error messages, and performance metrics.</p>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="color: var(--text-primary); margin-top: 24px; margin-bottom: 16px; font-size: 0.95rem;">Design Trade-offs</h4>
+        <div class="execution-summary">
+          <p>The Roslyn-based approach prioritizes <strong>performance</strong> (comparable to local execution) and <strong>scalability</strong> (easy container replication) over multi-language support. This makes the platform ideal for academic environments where C# dominance and responsiveness are more valuable than language diversity.</p>
         </div>
       </section>
     </section>
 
     <!-- ========== DEMO TAB ========== -->
     <section id="demo" class="tab-content">
-      <h2 class="section-title">Project Structure & Repositories</h2>
+      <h2 class="section-title">Platform Overview</h2>
 
-      <div class="demo-container">
-        <div class="demo-card">
-          <h3>GitHub Organization</h3>
-          <p>All project source code is publicly available on GitHub. The project is organized into separate repositories for frontend, backend, and infrastructure configuration.</p>
-          <button class="btn btn-primary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
-            🐙 Visit GitHub
-          </button>
+      <div class="demo-gallery">
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Register.png" alt="Registration">
+          </div>
+          <div class="demo-text">
+            <h4>Registration view</h4>
+            <p>Users start by registering with their email address. The registration form is simple and intuitive, collecting only essential information needed to create an account.</p>
+          </div>
         </div>
 
-        <div class="demo-features">
-          <h3>Key Repositories</h3>
-          <ul class="demo-list">
-            <li>
-              <span class="demo-check">→</span>
-              <strong>Frontend</strong> - React/TypeScript application with UI components and state management
-            </li>
-            <li>
-              <span class="demo-check">→</span>
-              <strong>Backend</strong> - ASP.NET Core API with business logic and database access
-            </li>
-            <li>
-              <span class="demo-check">→</span>
-              <strong>Infrastructure</strong> - Docker Compose configuration and deployment scripts
-            </li>
-            <li>
-              <span class="demo-check">→</span>
-              <strong>Documentation</strong> - API documentation, setup guides, and architecture diagrams
-            </li>
-          </ul>
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/VerifyEmail.png" alt="Email Verification">
+          </div>
+          <div class="demo-text">
+            <h4>Email verification view</h4>
+            <p>After registration, users verify their email address. A verification link is sent to the provided email, ensuring account authenticity and enabling secure communication.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Login.png" alt="Login">
+          </div>
+          <div class="demo-text">
+            <h4>Login view</h4>
+            <p>The login page provides secure access to the platform. Users can authenticate with their credentials or use Google OAuth for quick, passwordless sign-in.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Dashboard-Course.gif" alt="Dashboard to Courses">
+          </div>
+          <div class="demo-text">
+            <h4>Dashboard to courses transition</h4>
+            <p>Upon login, users see the dashboard showing their progress. They can navigate to the courses list to browse all available learning materials and topics.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Course-Lecture.gif" alt="Course to Lecture">
+          </div>
+          <div class="demo-text">
+            <h4>Course to lecture view transition</h4>
+            <p>Selecting a course displays the lecture materials. Users can read through course content, mark materials as completed, and track their learning progress.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Task.png" alt="Task View">
+          </div>
+          <div class="demo-text">
+            <h4>Task view</h4>
+            <p>Tasks allow users to apply their knowledge. Each task includes the problem description, code editor, and test cases to validate solutions.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Code_Analisis.gif" alt="Code Analysis">
+          </div>
+          <div class="demo-text">
+            <h4>Code analysis</h4>
+            <p>The platform analyzes submitted code in real-time, detecting syntax errors and semantic issues before execution. Detailed feedback helps users understand and fix problems.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Executing_code.gif" alt="Code Execution">
+          </div>
+          <div class="demo-text">
+            <h4>Code execution</h4>
+            <p>When code is executed, the platform runs it in an isolated Docker container. Results display immediately with test case outputs and performance metrics.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Submissions.png" alt="Submissions">
+          </div>
+          <div class="demo-text">
+            <h4>Submissions view</h4>
+            <p>Users can view all their previous submissions in one place. Each submission shows the code, execution results, and timestamp of the attempt.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Comments.png" alt="Comments">
+          </div>
+          <div class="demo-text">
+            <h4>Comments view</h4>
+            <p>Community discussion is built into each task. Users can comment, ask questions, and share insights with peers to enhance collaborative learning.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Lectures.png" alt="Lectures Tab">
+          </div>
+          <div class="demo-text">
+            <h4>Lectures tab view</h4>
+            <p>The lectures tab within a course displays all theoretical materials. Users navigate through lessons, read content, and mark materials as studied.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Tasks.png" alt="Tasks Tab">
+          </div>
+          <div class="demo-text">
+            <h4>Tasks tab view</h4>
+            <p>The tasks tab shows all coding exercises in a course. Users can filter by difficulty, view their progress, and access tasks they want to practice.</p>
+          </div>
+        </div>
+
+        <div class="demo-item">
+          <div class="demo-image">
+            <img src="assets/Visualizations.gif" alt="Algorithm Visualizations">
+          </div>
+          <div class="demo-text">
+            <h4>Algorithm visualizations</h4>
+            <p>Interactive visualizations show algorithm execution step-by-step. Users can write sorting algorithms and watch them execute with detailed process visualization.</p>
+          </div>
+        </div>
+
+        <div class="demo-item demo-item-reverse">
+          <div class="demo-image">
+            <img src="assets/Admin.png" alt="Admin Panel">
+          </div>
+          <div class="demo-text">
+            <h4>Admin panel</h4>
+            <p>Administrators have a dedicated panel to manage courses, tasks, and platform activity. They can create content, monitor user submissions, and manage permissions.</p>
+          </div>
         </div>
       </div>
-
-      <section class="features-section">
-        <h3>Project Statistics</h3>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">📦</div>
-            <div class="stat-number">3</div>
-            <div class="stat-label">Main Repositories</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">📝</div>
-            <div class="stat-number">100+</div>
-            <div class="stat-label">Commits</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🔧</div>
-            <div class="stat-number">9</div>
-            <div class="stat-label">Tech Stack</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">📚</div>
-            <div class="stat-number">MIT</div>
-            <div class="stat-label">Open Source License</div>
-          </div>
-        </div>
-      </section>
     </section>
 
     <!-- ========== SETUP TAB ========== -->
@@ -460,49 +588,118 @@
         <h3>Prerequisites</h3>
         <div class="setup-card">
           <ul style="list-style: none; color: var(--text-secondary);">
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Node.js 16+</strong> - For frontend development</li>
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">.NET 6+ SDK</strong> - For backend development</li>
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Docker & Docker Compose</strong> - For containerized deployment</li>
-            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SQL Server 2022</strong> - Or use containerized version</li>
-            <li style="margin-bottom: 0;"><strong style="color: var(--text-primary);">Git</strong> - For version control</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Docker & Docker Desktop</strong> - Latest version required for containerization</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Git</strong> - Latest version for repository management</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SQL Server Management Studio</strong> - Optional, for database management</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Visual Studio 2022/2026</strong> - Optional, for development environment</li>
+            <li style="margin-bottom: 0;"><strong style="color: var(--text-primary);">Modern Web Browser</strong> - Chrome recommended (mobile devices not supported)</li>
           </ul>
         </div>
       </section>
 
       <section class="setup-section">
-        <h3>Local Development Setup</h3>
+        <h3>Project Structure</h3>
+        <div class="setup-card">
+          <p style="color: var(--text-secondary); margin-bottom: 12px;">Create the following directory structure:</p>
+          <pre><code>AlgoRhythmProject/
+├── Frontend/
+│   ├── AlgoRhythm/
+│   └── .env
+├── Backend/
+│   ├── AlgoRhythm/
+│   │   └── .env
+│   └── docker-compose.dev.yml
+└── docker-compose.prod.yml</code></pre>
+        </div>
+      </section>
+
+      <section class="setup-section">
+        <h3>Environment Variables Setup</h3>
         
-        <div style="margin-bottom: 30px;">
-          <h4 style="color: var(--text-primary); margin-bottom: 15px;">1. Frontend</h4>
+        <div style="margin-bottom: 24px;">
+          <h4 style="color: var(--text-primary); margin-bottom: 12px;">Backend Variables (.env)</h4>
           <div class="setup-card">
-            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Frontend.git
-<span class="keyword">cd</span> Frontend
-npm install
-npm run dev</code></pre>
-            <p class="setup-note">Frontend runs on http://localhost:5173</p>
+            <pre><code><span class="keyword">SA_PASSWORD</span>=your_db_password
+<span class="keyword">JWT_KEY</span>=your_jwt_secret_key
+<span class="keyword">CONNECTION_STRING</span>=Server=mssql;...
+<span class="keyword">SENDGRID_API_KEY</span>=your_sendgrid_key
+<span class="keyword">FRONTEND_URL</span>=http://localhost:5173
+<span class="keyword">CODE_EXECUTOR_URL</span>=http://executor-lb:80
+<span class="keyword">GOOGLE_CLIENT_ID</span>=your_google_client_id
+<span class="keyword">GOOGLE_CLIENT_SECRET</span>=your_google_secret</code></pre>
           </div>
         </div>
 
-        <div style="margin-bottom: 30px;">
-          <h4 style="color: var(--text-primary); margin-bottom: 15px;">2. Backend</h4>
+        <div style="margin-bottom: 24px;">
+          <h4 style="color: var(--text-primary); margin-bottom: 12px;">Frontend Variables (.env)</h4>
           <div class="setup-card">
-            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Backend.git
-<span class="keyword">cd</span> Backend
-dotnet restore
-dotnet ef database update
-dotnet run</code></pre>
-            <p class="setup-note">API runs on https://localhost:5001</p>
+            <pre><code><span class="keyword">VITE_API_BASE_URL</span>=http://localhost:7062/api
+<span class="keyword">VITE_ANALYZER_URL</span>=http://localhost:5095/roslynhub
+<span class="keyword">VITE_VISUALIZER_URL</span>=http://localhost:5148/visualizerhub
+<span class="keyword">VITE_GOOGLE_CLIENT_ID</span>=your_google_client_id</code></pre>
           </div>
         </div>
+      </section>
 
-        <div style="margin-bottom: 30px;">
-          <h4 style="color: var(--text-primary); margin-bottom: 15px;">3. Docker Deployment</h4>
-          <div class="setup-card">
-            <pre><code><span class="keyword">git</span> clone https://github.com/AlgoRhythmProject/Docker.git
-<span class="keyword">cd</span> Docker
-docker-compose up</code></pre>
-            <p class="setup-note">All services start. Access app at http://localhost:3000</p>
-          </div>
+      <section class="setup-section">
+        <h3>Development Environment</h3>
+        <div class="setup-card">
+          <p style="color: var(--text-secondary); margin-bottom: 16px;">The development environment optimizes code and testing with local builds.</p>
+          <ol style="list-style-position: inside; color: var(--text-secondary); padding-left: 0;">
+            <li style="margin-bottom: 12px;">Clone repositories:
+              <pre style="margin-top: 8px;"><code>git clone https://github.com/AlgoRhythmProject/Backend.git
+git clone https://github.com/AlgoRhythmProject/Frontend.git</code></pre>
+            </li>
+            <li style="margin-bottom: 12px;">Create .env files in both Backend/AlgoRhythm/ and Frontend/AlgoRhythm/ with variables listed above</li>
+            <li style="margin-bottom: 12px;">Navigate to Backend/AlgoRhythm/ and run:
+              <pre style="margin-top: 8px;"><code>docker-compose -f docker-compose.dev.yml up --scale executor=2</code></pre>
+            </li>
+            <li style="margin-bottom: 0;">Access the application at <strong>http://localhost:5173</strong></li>
+          </ol>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <p style="color: var(--text-secondary); font-size: 0.9rem;"><strong>Useful Endpoints:</strong></p>
+          <ul style="list-style: none; color: var(--text-secondary); margin-top: 8px;">
+            <li>🌐 Frontend: http://localhost:5173</li>
+            <li>📡 Backend API: https://localhost:7062</li>
+            <li>📚 Swagger (Backend): http://localhost:7062/swagger/index.html</li>
+            <li>⚙️ Swagger (Code Executor): http://localhost:7070/swagger/index.html</li>
+            <li>💾 Database: Server=localhost, Port=1433 (via SQL Server Management Studio)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="setup-section">
+        <h3>Production Environment</h3>
+        <div class="setup-card">
+          <p style="color: var(--text-secondary); margin-bottom: 16px;">Production environment uses lightweight pre-built images and automated CI/CD.</p>
+          <ol style="list-style-position: inside; color: var(--text-secondary); padding-left: 0;">
+            <li style="margin-bottom: 12px;">Download <code>docker-compose.prod.yml</code></li>
+            <li style="margin-bottom: 12px;">Create a .env file with all backend variables plus:
+              <pre style="margin-top: 8px;"><code><span class="keyword">AZURE_STORAGE_CONNECTION_STRING</span>=your_azure_connection
+<span class="keyword">ANALYZER_URL</span>=http://localhost:5095/roslynhub
+<span class="keyword">VISUALISER_URL</span>=http://localhost:5148/visualizerhub
+<span class="keyword">BACKEND_URL</span>=http://localhost:7062/api</code></pre>
+            </li>
+            <li style="margin-bottom: 12px;">Run:
+              <pre style="margin-top: 8px;"><code>docker-compose -f docker-compose.prod.yml up --scale executor=2</code></pre>
+            </li>
+            <li style="margin-bottom: 0;">Application automatically updates database and initializes with seed data</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="setup-section">
+        <h3>External Dependencies</h3>
+        <div class="setup-card">
+          <p style="color: var(--text-secondary); margin-bottom: 16px;"><strong>The platform depends on the following external services:</strong></p>
+          <ul style="list-style: none; color: var(--text-secondary);">
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">Roslyn</strong> - C# compiler (Microsoft). Easily extensible for other languages.</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SQL Server</strong> - Primary database. Entity Framework Core supports MySQL, SQLite, PostgreSQL as alternatives.</li>
+            <li style="margin-bottom: 12px;"><strong style="color: var(--text-primary);">SendGrid</strong> - Email service. Replaceable via IEmailSender interface implementation.</li>
+            <li style="margin-bottom: 0;"><strong style="color: var(--text-primary);">Azure Blob Storage</strong> - File storage for videos/images. Replaceable via IFileStorageService interface.</li>
+          </ul>
         </div>
       </section>
 
@@ -510,10 +707,10 @@ docker-compose up</code></pre>
         <h3>Documentation & Resources</h3>
         <div class="setup-links">
           <a href="https://github.com/AlgoRhythmProject/Frontend" class="setup-link" target="_blank">
-            📘 Frontend Repo
+            📘 Frontend Repository
           </a>
           <a href="https://github.com/AlgoRhythmProject/Backend" class="setup-link" target="_blank">
-            📗 Backend Repo
+            📗 Backend Repository
           </a>
           <a href="https://github.com/AlgoRhythmProject" class="setup-link" target="_blank">
             📙 Main Organization
@@ -536,8 +733,8 @@ docker-compose up</code></pre>
           <button class="btn btn-primary btn-large" onclick="window.open('https://github.com/AlgoRhythmProject', '_blank')">
             🐙 View Repository
           </button>
-          <button class="btn btn-secondary btn-large" onclick="document.querySelector('[data-tab=\"setup\"]').click()">
-            ⚙️ Setup Guide
+          <button class="btn btn-secondary btn-large" onclick="window.open('Thesis.pdf', '_blank')">
+            📄 Read Project
           </button>
         </div>
       </div>
@@ -595,13 +792,6 @@ docker-compose up</code></pre>
 </html>
   </div>
 
-  <h2>🔐 Bezpieczeństwo</h2>
-  <div class="card">
-    <p>
-      Kod użytkownika wykonywany jest w izolowanym środowisku (kontenery Docker),
-      co zapewnia bezpieczeństwo i ochronę danych.
-    </p>
-  </div>
 
 </section>
 
