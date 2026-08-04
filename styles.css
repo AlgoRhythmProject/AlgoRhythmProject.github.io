@@ -155,16 +155,46 @@ body {
 
 /* ================== Hero Section ================== */
 .hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
     min-height: 30vh;
     display: flex;
     align-items: center;
     padding: 40px 0;
-    background: #0f0f0f;
+    background:
+        radial-gradient(900px 380px at 12% -8%, rgba(139, 92, 246, 0.26), transparent 62%),
+        radial-gradient(700px 300px at 88% 112%, rgba(105, 66, 213, 0.24), transparent 58%),
+        linear-gradient(145deg, #130a2a 0%, #1c1035 48%, #130a2a 100%);
     border-bottom: 1px solid var(--border-color);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(1px 1px at 14% 22%, rgba(255, 255, 255, 0.72) 0, transparent 100%),
+        radial-gradient(1px 1px at 64% 16%, rgba(255, 255, 255, 0.6) 0, transparent 100%),
+        radial-gradient(1.3px 1.3px at 28% 76%, rgba(255, 255, 255, 0.55) 0, transparent 100%),
+        radial-gradient(1px 1px at 88% 52%, rgba(255, 255, 255, 0.65) 0, transparent 100%),
+        radial-gradient(1px 1px at 46% 34%, rgba(255, 255, 255, 0.42) 0, transparent 100%);
+    background-size: 220px 220px, 250px 250px, 300px 300px, 280px 280px, 260px 260px;
+    opacity: 0.65;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(70% 60% at 50% 48%, rgba(153, 102, 255, 0.14), transparent 75%);
 }
 
 .hero-content {
     position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1fr;
     gap: 40px;
@@ -341,7 +371,7 @@ body {
 
 /* ================== Features Section ================== */
 .features-section {
-    margin-bottom: 40px;
+    margin-bottom: 46px;
 }
 
 .features-section h3 {
@@ -608,7 +638,7 @@ body {
 
 /* ================== Setup Section ================== */
 .setup-section {
-    margin-bottom: 30px;
+    margin-bottom: 34px;
 }
 
 .setup-section h3 {
@@ -754,6 +784,16 @@ body {
 
 .footer-section ul li a:hover {
     color: var(--info);
+}
+
+.repo-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.repo-links li {
+    padding: 0;
 }
 
 .footer-bottom {
@@ -970,6 +1010,10 @@ body {
     .footer-content {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+
+    .repo-links {
+        gap: 12px;
     }
 }
 

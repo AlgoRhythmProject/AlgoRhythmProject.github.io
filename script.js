@@ -154,7 +154,7 @@ function initializeScrollAnimations() {
 /* ================== Keyboard Navigation ================== */
 function initializeKeyboardNavigation() {
     const tabButtons = document.querySelectorAll('.tab-button');
-    const tabs = ['summary', 'technologies', 'motivation'];
+    const tabs = ['summary', 'features', 'tech-stack', 'demo', 'setup'];
     let currentTabIndex = 0;
 
     document.addEventListener('keydown', (e) => {
